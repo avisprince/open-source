@@ -104,8 +104,10 @@ sudo ufw enable
 
 echo "Creating NGINX configuration..."
 PUBLIC_IP=$(curl -s ifconfig.me)
+NGINX_AVAILABLE="/etc/nginx/sites-available/multiport"
+NGINX_ENABLED="/etc/nginx/sites-enabled/multiport"
 
-sudo bash -c "cat > /etc/nginx/sites-available/api" <<EOF
+sudo bash -c "cat > $NGINX_AVAILABLE" <<EOF
 server {
   listen 5000;  # External port to access the API via HTTP
   server_name $PUBLIC_IP;
@@ -131,7 +133,13 @@ server {
 }
 EOF
 
+echo "Enabling NGINX configuration..."
+sudo ln -sf $NGINX_AVAILABLE $NGINX_ENABLED
+
+echo "Testing NGINX configuration..."
 sudo nginx -t
+
+echo "Reloading NGINX..."
 sudo systemctl reload nginx
 
 # Git Installation
