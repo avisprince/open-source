@@ -1,0 +1,35 @@
+{
+  "folders": [
+    {
+      "path": ".",
+      "name": "root"
+    },
+    {
+      "path": "control-tower"
+    },
+    {
+      "path": "dashboard"
+    },
+    {
+      "path": "interceptor"
+    },
+    {
+      "path": "prod"
+    },
+    {
+      "path": "proxy-service"
+    },
+    {
+      "path": "shared"
+    },
+    {
+      "path": "traffic-tester"
+    },
+    {
+      "path": "initializeDB"
+    }
+  ],
+  "settings": {
+    "typescript.tsdk": "control-tower/node_modules/typescript/lib"
+  }
+}

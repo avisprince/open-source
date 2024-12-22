@@ -1,0 +1,37 @@
+# Use a minimal base image for the final image
+FROM golang:alpine as builder
+
+# Set the working directory
+WORKDIR /app
+
+# Copy Go mod and sum files
+COPY ./proxy-service/go.mod ./proxy-service/go.sum ./
+
+# Download dependencies
+RUN go mod download
+
+# Copy the source code
+COPY ./proxy-service .
+
+# Install ca-certificates and tzdata
+RUN apk add --no-cache ca-certificates tzdata
+
+# Build the Go application with optimizations
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -ldflags "-s -w" -o proxy-service .
+
+# Use a scratch base image for the final image
+FROM scratch
+
+# Set the working directory
+WORKDIR /app
+
+# Copy only the built Go binary and the SSL certificates from the builder stage
+COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
+COPY --from=builder /usr/share/zoneinfo /usr/share/zoneinfo
+COPY --from=builder /app/proxy-service .
+
+# Expose the desired port
+EXPOSE 80
+
+# Run the Go application
+CMD ["./proxy-service"]

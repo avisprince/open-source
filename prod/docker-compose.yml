@@ -1,0 +1,27 @@
+services:
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - MONGO_INITDB_ROOT_USERNAME=<replaceme>
+      - MONGO_INITDB_ROOT_PASSWORD=<replaceme>
+    volumes:
+      - /root/mongodb/database:/data/db
+    ports:
+      - 27017:27017
+    expose:
+      - 27017
+  control-tower:
+    build: .
+    ports:
+      - 5000:5000
+    expose:
+      - 5000
+    environment:
+      - NODE_ENV=prod
+      - MONGO_DOMAIN=mongodb://mongodb
+    depends_on:
+      - mongodb
+    image: avisprince/control-tower:latest

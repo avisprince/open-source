@@ -1,0 +1,19 @@
+{
+  "name": "dokkimi",
+  "version": "0.0.1",
+  "description": "",
+  "author": "",
+  "private": true,
+  "license": "UNLICENSED",
+  "scripts": {
+    "dbuild:controlTower": "docker build -f ./Dockerfile.controlTower -t dokkimi/control-tower:latest .",
+    "dbuild:interceptor": "docker build -f ./Dockerfile.interceptor -t dokkimi/interceptor:latest .",
+    "dbuild:proxyservice": "docker build -f ./Dockerfile.proxyservice -t dokkimi/proxy-service:latest .",
+    "dbuild:trafficTester": "docker build -f Dockerfile.trafficTester -t dokkimi/traffic-tester:latest .",
+    "dbuild:interceptor:dev": "docker build -f Dockerfile.interceptor.dev -t interceptor:dev .",
+    "dbuild:proxyservice:dev": "docker build -f Dockerfile.proxyservice.dev -t proxy-service:dev .",
+    "dpush:interceptor": "docker push dokkimi/interceptor:latest",
+    "dpush:proxyservice": "docker push dokkimi/proxy-service:latest",
+    "dpush:trafficTester": "docker push dokkimi/traffic-tester:latest"
+  }
+}

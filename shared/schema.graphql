@@ -1,0 +1,900 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Action implements NamespaceTraffic {
+  actionId: String!
+  body: String!
+  headers: String!
+  id: String!
+  isMocked: Boolean
+  method: String!
+  namespace: ID!
+  origin: String!
+  originDomain: String!
+  protocol: String!
+  status: Int
+  target: String!
+  targetDomain: String!
+  timestamp: String!
+  trafficType: String!
+  type: String!
+  url: String!
+}
+
+type ActiveUser {
+  color: String!
+  heartbeat: DateTime!
+  peerId: String!
+  user: User!
+}
+
+type CanvasInfo {
+  posX: Float!
+  posY: Float!
+}
+
+input CanvasInfoInput {
+  posX: Float
+  posY: Float
+}
+
+type ConsoleLog {
+  itemId: String!
+  message: String!
+  timestamp: Int!
+}
+
+type Database implements DatabaseBase & NamespaceItem {
+  canvasInfo: CanvasInfo!
+  database: String
+  displayName: String!
+  errors: [String!]
+  initFile: Upload
+  isTemplate: Boolean!
+  itemId: String!
+  itemType: String!
+  maxResources: NumericUsage!
+  minResources: NumericUsage!
+  namespaceStatus: String
+  updatedAt: DateTime
+  usage: NumericUsage
+}
+
+interface DatabaseBase {
+  database: String
+  displayName: String!
+  initFile: Upload
+  isTemplate: Boolean
+  itemType: String!
+  maxResources: NumericUsage!
+  minResources: NumericUsage!
+  updatedAt: DateTime
+}
+
+input DatabaseInput {
+  canvasInfo: CanvasInfoInput
+  database: String
+  displayName: String
+  initFile: String
+  itemId: String
+  itemType: String = "Database"
+  maxResources: NumericUsageInput
+  minResources: NumericUsageInput
+  namespaceStatus: String
+  permissions: PermissionsInput
+  updatedAt: DateTime
+}
+
+type DatabaseQueryResultOutput {
+  query: String!
+  result: JSON
+}
+
+type DatabaseTemplate implements DatabaseBase & ItemTemplate {
+  database: String
+  displayName: String!
+  initFile: Upload
+  isTemplate: Boolean!
+  itemType: String!
+  maxResources: NumericUsage!
+  minResources: NumericUsage!
+  updatedAt: DateTime
+}
+
+input DatabaseTemplateInput {
+  database: String
+  displayName: String
+  initFile: String
+  itemType: String = "Database"
+  updatedAt: DateTime
+}
+
+"""DateTime custom scalar type"""
+scalar DateTime
+
+type DbQuery implements DbQueryBase & NamespaceItem {
+  canvasInfo: CanvasInfo!
+  displayName: String!
+  errors: [String!]
+  isTemplate: Boolean!
+  itemId: String!
+  itemType: String!
+  namespaceStatus: String
+  query: String
+  target: String
+  updatedAt: DateTime
+  usage: NumericUsage
+  useDatabase: String
+}
+
+interface DbQueryBase {
+  displayName: String!
+  isTemplate: Boolean
+  itemType: String!
+  query: String
+  target: String
+  updatedAt: DateTime
+  useDatabase: String
+}
+
+input DbQueryInput {
+  canvasInfo: CanvasInfoInput
+  displayName: String
+  itemId: String
+  itemType: String = "DbQuery"
+  namespaceStatus: String
+  query: String
+  target: String
+  updatedAt: DateTime
+  useDatabase: String
+}
+
+type DbQueryTemplate implements DbQueryBase & ItemTemplate {
+  displayName: String!
+  isTemplate: Boolean!
+  itemType: String!
+  query: String
+  target: String
+  updatedAt: DateTime
+  useDatabase: String
+}
+
+input DbQueryTemplateInput {
+  displayName: String
+  itemType: String = "DbQuery"
+  query: String
+  target: String
+  updatedAt: DateTime
+  useDatabase: String
+}
+
+type DeleteNamespaceItemsOutput {
+  itemIds: [String!]!
+}
+
+type DockerRegistrySecret {
+  accessToken: String
+  accessTokenLength: Float
+  ecrClientId: String
+  ecrClientRegion: String
+  id: ID!
+  name: String
+  permissions: Permissions!
+  repository: String!
+  username: String
+}
+
+input DockerRegistrySecretInput {
+  accessToken: String
+  accessTokenLength: Int
+  ecrClientId: String
+  ecrClientRegion: String
+  id: ID
+  name: String
+  permissions: PermissionsInput
+  repository: String! = "Docker"
+  username: String
+}
+
+input EditDbInitUploadInput {
+  database: String!
+  fileName: String!
+}
+
+type EnvVar {
+  name: String!
+  value: String!
+}
+
+input EnvVarInput {
+  name: String!
+  value: String!
+}
+
+type HttpRequest implements HttpRequestBase & NamespaceItem {
+  body: String
+  canvasInfo: CanvasInfo!
+  displayName: String!
+  errors: [String!]
+  headers: String
+  isTemplate: Boolean!
+  itemId: String!
+  itemType: String!
+  method: String
+  namespaceStatus: String
+  path: String
+  protocol: String
+  target: String
+  updatedAt: DateTime
+  usage: NumericUsage
+}
+
+interface HttpRequestBase {
+  body: String
+  displayName: String!
+  headers: String
+  isTemplate: Boolean
+  itemType: String!
+  method: String
+  path: String
+  protocol: String
+  target: String
+  updatedAt: DateTime
+}
+
+input HttpRequestInput {
+  body: String
+  canvasInfo: CanvasInfoInput
+  displayName: String
+  headers: String
+  itemId: String
+  itemType: String = "HttpRequest"
+  method: String
+  namespaceStatus: String
+  origin: String
+  path: String
+  protocol: String
+  target: String
+  updatedAt: DateTime
+  url: String
+}
+
+type HttpRequestResultOutput {
+  data: JSON
+  headers: JSON
+  status: Int!
+}
+
+type HttpRequestTemplate implements HttpRequestBase & ItemTemplate {
+  body: String
+  displayName: String!
+  headers: String
+  isTemplate: Boolean!
+  itemType: String!
+  method: String
+  path: String
+  protocol: String
+  target: String
+  updatedAt: DateTime
+}
+
+input HttpRequestTemplateInput {
+  body: String
+  displayName: String
+  headers: String
+  itemType: String = "HttpRequest"
+  method: String
+  origin: String
+  path: String
+  target: String
+}
+
+interface ItemTemplate {
+  displayName: String!
+  itemType: String!
+  updatedAt: DateTime
+}
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
+type MemberOverride {
+  editPermissions: String!
+  email: String!
+}
+
+input MemberOverrideInput {
+  editPermissions: String!
+  email: String
+}
+
+type MockEndpoint implements MockEndpointBase & NamespaceItem {
+  canvasInfo: CanvasInfo!
+  delayMS: Int
+  displayName: String!
+  errors: [String!]
+  isTemplate: Boolean!
+  itemId: String!
+  itemType: String!
+  method: String
+  namespaceStatus: String
+  origin: String
+  path: String
+  responseBody: String
+  responseHeaders: String
+  responseStatus: Int
+  target: String
+  updatedAt: DateTime
+  usage: NumericUsage
+}
+
+interface MockEndpointBase {
+  delayMS: Int
+  displayName: String!
+  isTemplate: Boolean
+  itemType: String!
+  method: String
+  origin: String
+  path: String
+  responseBody: String
+  responseHeaders: String
+  responseStatus: Int
+  target: String
+  updatedAt: DateTime
+}
+
+input MockEndpointInput {
+  canvasInfo: CanvasInfoInput
+  delayMS: Int
+  displayName: String
+  itemId: String
+  itemType: String = "MockEndpoint"
+  method: String = "GET"
+  namespaceStatus: String
+  origin: String
+  path: String = "/"
+  responseBody: String
+  responseHeaders: String
+  responseStatus: Int
+  target: String
+  updatedAt: DateTime
+}
+
+type MockEndpointTemplate implements ItemTemplate & MockEndpointBase {
+  delayMS: Int
+  displayName: String!
+  isTemplate: Boolean!
+  itemType: String!
+  method: String
+  origin: String
+  path: String
+  responseBody: String
+  responseHeaders: String
+  responseStatus: Int
+  target: String
+  updatedAt: DateTime
+}
+
+input MockEndpointTemplateInput {
+  delayMS: Int
+  displayName: String
+  itemType: String = "MockEndpoint"
+  method: String = "GET"
+  origin: String
+  path: String = "/"
+  responseBody: String
+  responseHeaders: String
+  responseStatus: Int
+  target: String
+  updatedAt: DateTime
+}
+
+type Mutation {
+  activeUserHeartbeat(namespaceId: ID!, peerId: String!): Boolean!
+  addItemToNamespace(item: NewNamespaceItemInput!, namespaceId: ID!): NamespaceItem!
+  addMember(email: String!, organizationId: ID!): Organization!
+  addTemplateToNamespace(canvasInfo: CanvasInfoInput!, namespaceId: ID!, templateId: ID!): NamespaceItem!
+  changeName(email: String!, newName: String!): User!
+  changePassword(email: String!, newPassword: String!): Boolean!
+  clearNamespaceTraffic(namespaceId: ID!): Namespace!
+  createNamespace(namespace: NamespaceInput!, organizationId: ID!): Namespace!
+  createNamespaceItemTemplate(displayName: String!, itemType: String!, organizationId: ID!): NamespaceItemTemplate!
+  createOrganization(creatorEmail: String!, name: String!): Organization!
+  createSecret(organizationId: ID!, secret: DockerRegistrySecretInput!): DockerRegistrySecret!
+  createTestCase(namespaceId: ID!, testCase: TestCaseInput!): Namespace!
+  createTestSuite(organizationId: ID!, testSuite: TestSuiteInput!): TestSuite!
+  deleteItemFromNamespace(itemId: String!, namespaceId: ID!): [NamespaceItem!]!
+  deleteNamespace(namespaceId: ID!): Namespace!
+  deleteNamespaceItemTemplate(namespaceItemTemplateId: ID!): NamespaceItemTemplate!
+  deleteOrganization(organizationId: ID!): Organization!
+  deleteSecret(secretId: ID!): DockerRegistrySecret!
+  deleteTestCase(namespaceId: ID!, testCaseId: String!): Namespace!
+  deleteTestSuite(testSuiteId: ID!): TestSuite!
+  deleteUpload(fileId: ID!): Upload!
+  duplicateNamespace(namespaceId: ID!, organizationId: ID!): Namespace!
+  duplicateNamespaceItem(itemId: String!, namespaceId: ID!, posX: Float!, posY: Float!): NamespaceItem!
+  removeMember(email: String!, organizationId: ID!): Organization!
+  resendNamespaceAction(actionRequestId: String!, namespaceId: ID!): HttpRequestResultOutput!
+  runTestSuite(testSuiteId: ID!): TestSuite!
+  saveItemAsTemplate(itemId: String!, namespaceId: ID!): NamespaceItemTemplate!
+  sendDbQueryToNamespace(itemId: String!, namespaceId: ID!): [DatabaseQueryResultOutput!]!
+  sendRequestToNamespace(itemId: String!, namespaceId: ID!): HttpRequestResultOutput!
+  startNamespace(namespaceId: ID!): Namespace!
+  startNamespaceItem(itemId: String!, namespaceId: ID!): String!
+  terminateNamespace(namespaceId: ID!): Namespace!
+  terminateNamespaceItem(itemId: String!, namespaceId: ID!): String!
+  updateDbInitFile(file: EditDbInitUploadInput!, fileId: ID!): Upload!
+  updateItemInNamespace(item: NamespaceItemInput!, namespaceId: ID!): NamespaceItem!
+  updateItemPositionInNamespace(itemPosition: NamespaceItemPositionInput!, namespaceId: ID!): NamespaceItem!
+  updateNamespace(namespace: NamespaceInput!, namespaceId: ID!): Namespace!
+  updateNamespaceItemTemplate(namespaceItemTemplate: NamespaceItemTemplateInput!, namespaceItemTemplateId: ID!): NamespaceItemTemplate!
+  updateOrganization(organization: OrganizationInput!, organizationId: ID!): Organization!
+  updateSecret(secret: DockerRegistrySecretInput!, secretId: ID!): DockerRegistrySecret!
+  updateTestCase(namespaceId: ID!, testCase: TestCaseInput!): Namespace!
+  updateTestOrder(namespaceId: ID!, testCaseIds: [String!]!): Namespace!
+  updateTestSuite(testSuite: TestSuiteInput!, testSuiteId: ID!): TestSuite!
+}
+
+type Namespace {
+  actions: [Action!]!
+  activeUsers: [ActiveUser!]!
+  createdAt: DateTime
+  databases: [Database!]!
+  dbQueries: [DbQuery!]!
+  httpRequests: [HttpRequest!]!
+  id: ID!
+  isArchived: Boolean!
+  items: [NamespaceItem!]!
+  lastUsedAt: DateTime
+  maxItemResources: NumericUsage!
+  mockEndpoints: [MockEndpoint!]!
+  name: String!
+  permissions: Permissions!
+  queries: [QueryLog!]!
+  queryHistories: [QueryHistory!]!
+  services: [Service!]!
+  status: String!
+  templateId: ID
+  testCases: [TestCase!]!
+  testRunId: ID
+  traffic: [NamespaceTraffic!]!
+  trafficHistories: [TrafficHistory!]!
+  type: String!
+  updatedAt: DateTime
+  usage: NumericUsage
+}
+
+type NamespaceActiveUsersOutput {
+  activeUsers: [ActiveUser!]!
+  namespaceId: ID!
+  orgId: ID!
+}
+
+type NamespaceHealth {
+  serviceStatus: [ServiceStatus!]!
+  status: String
+  usage: NumericUsage
+}
+
+type NamespaceHealthSubscriptionOutput {
+  namespaceHealth: NamespaceHealth!
+  namespaceId: ID!
+}
+
+input NamespaceInput {
+  id: ID
+  name: String
+  permissions: PermissionsInput
+  type: String
+}
+
+interface NamespaceItem {
+  canvasInfo: CanvasInfo!
+  displayName: String!
+  errors: [String!]
+  itemId: String!
+  itemType: String!
+  namespaceStatus: String
+  usage: NumericUsage
+}
+
+input NamespaceItemInput {
+  database: DatabaseInput
+  dbQuery: DbQueryInput
+  httpRequest: HttpRequestInput
+  itemType: String!
+  mockEndpoint: MockEndpointInput
+  queryHistory: QueryHistoryInput
+  service: ServiceInput
+  trafficHistory: TrafficHistoryInput
+}
+
+input NamespaceItemPositionInput {
+  canvasInfo: CanvasInfoInput!
+  itemId: String!
+}
+
+type NamespaceItemTemplate {
+  id: ID
+  permissions: Permissions!
+  template: ItemTemplate!
+  updatedAt: DateTime
+}
+
+input NamespaceItemTemplateInput {
+  database: DatabaseTemplateInput
+  dbQuery: DbQueryTemplateInput
+  httpRequest: HttpRequestTemplateInput
+  itemType: String!
+  mockEndpoint: MockEndpointTemplateInput
+  permissions: PermissionsInput
+  service: ServiceTemplateInput
+}
+
+interface NamespaceTraffic {
+  trafficType: String!
+}
+
+input NewNamespaceItemInput {
+  canvasInfo: CanvasInfoInput!
+  displayName: String!
+  itemType: String!
+}
+
+type NodeMetrics {
+  name: String!
+  usage: Usage!
+}
+
+type NumericUsage {
+  cpu: Float!
+  memory: Float!
+}
+
+input NumericUsageInput {
+  cpu: Float!
+  memory: Float!
+}
+
+type NumericUsageWithTimestamp {
+  cpu: Float!
+  memory: Float!
+  timestamp: DateTime!
+}
+
+type Organization {
+  allocatedResources: NumericUsage!
+  creator: ID!
+  groups: [Organization!]!
+  id: ID!
+  image: String
+  isPersonal: Boolean!
+  members: [OrganizationMember!]!
+  name: String!
+  owner: ID!
+  parentOrganization: ID
+  paymentPlan: String
+  usage: [NumericUsageWithTimestamp!]
+}
+
+input OrganizationInput {
+  image: String
+  name: String
+}
+
+type OrganizationMember {
+  email: String!
+  role: String!
+  user: User!
+}
+
+type Permissions {
+  author: String!
+  memberOverrides: [MemberOverride!]!
+  organizationId: ID!
+  owner: String
+}
+
+input PermissionsInput {
+  author: String
+  memberOverrides: [MemberOverrideInput!] = []
+  organizationId: ID
+  owner: String
+}
+
+type PodMetrics {
+  name: String!
+  usage: [Usage!]!
+}
+
+type Query {
+  currentUser: User!
+  namespace(namespaceId: ID!): Namespace!
+  namespaceItemTemplates(organizationId: ID!): [NamespaceItemTemplate!]!
+  namespaces(organizationId: ID!, type: String!): [Namespace!]!
+  orgDbInitFiles(organizationId: ID!): [Upload!]!
+  orgSecrets(organizationId: ID!): [DockerRegistrySecret!]!
+  orgTestSuites(organizationId: ID!): [TestSuite!]!
+  organization(organizationId: ID!): Organization!
+  userNamespaceItemTemplates: [NamespaceItemTemplate!]!
+  userNamespaces: [Namespace!]!
+}
+
+type QueryHistory implements NamespaceItem {
+  canvasInfo: CanvasInfo!
+  databaseItemId: String
+  displayName: String!
+  errors: [String!]
+  itemId: String!
+  itemType: String!
+  namespaceStatus: String
+  originItemId: String
+  updatedAt: DateTime
+  usage: NumericUsage
+}
+
+input QueryHistoryInput {
+  canvasInfo: CanvasInfoInput!
+  databaseItemId: String
+  displayName: String
+  itemId: String
+  itemType: String = "QueryHistory"
+  namespaceStatus: String
+  originItemId: String
+}
+
+type QueryLog implements NamespaceTraffic {
+  databaseItemId: String!
+  databaseType: String!
+  originItemId: String!
+  query: String!
+  queryId: String!
+  queryTime: Float
+  rowsExamined: Float
+  rowsSent: Float
+  timestamp: String!
+  trafficType: String!
+}
+
+type Service implements NamespaceItem & ServiceBase {
+  canvasInfo: CanvasInfo!
+  consoleLogs: [ConsoleLog!]!
+  displayName: String!
+  dockerRegistrySecret: DockerRegistrySecret
+  domain: String
+  env: [EnvVar!]
+  errors: [String!]
+  healthCheck: String
+  image: String
+  isTemplate: Boolean!
+  itemId: String!
+  itemType: String!
+  maxResources: NumericUsage!
+  minResources: NumericUsage!
+  namespaceStatus: String
+  port: Int
+  updatedAt: DateTime
+  usage: NumericUsage
+}
+
+interface ServiceBase {
+  displayName: String!
+  dockerRegistrySecret: DockerRegistrySecret
+  domain: String
+  env: [EnvVar!]
+  healthCheck: String
+  image: String
+  isTemplate: Boolean
+  itemType: String!
+  maxResources: NumericUsage!
+  minResources: NumericUsage!
+  port: Int
+  updatedAt: DateTime
+}
+
+input ServiceInput {
+  canvasInfo: CanvasInfoInput
+  displayName: String
+  dockerRegistrySecret: ID
+  domain: String
+  env: [EnvVarInput!] = []
+  healthCheck: String
+  image: String
+  itemId: String
+  itemType: String = "Service"
+  maxResources: NumericUsageInput
+  minResources: NumericUsageInput
+  namespaceStatus: String
+  permissions: PermissionsInput
+  port: Float
+  updatedAt: DateTime
+}
+
+type ServiceStatus {
+  name: String!
+  status: String
+  usage: NumericUsage
+}
+
+type ServiceTemplate implements ItemTemplate & ServiceBase {
+  displayName: String!
+  dockerRegistrySecret: DockerRegistrySecret
+  domain: String
+  env: [EnvVar!]
+  healthCheck: String
+  image: String
+  isTemplate: Boolean!
+  itemType: String!
+  maxResources: NumericUsage!
+  minResources: NumericUsage!
+  port: Int
+  updatedAt: DateTime
+}
+
+input ServiceTemplateInput {
+  displayName: String
+  dockerRegistrySecret: ID
+  domain: String
+  env: [EnvVarInput!] = []
+  healthCheck: String
+  image: String
+  itemType: String = "Service"
+  port: Float
+  updatedAt: DateTime
+}
+
+type Subscription {
+  actionLogged(namespaceId: ID!): Action!
+  consoleLogged(namespaceId: ID!): [ConsoleLog!]!
+  deleteNamespaceItems(namespaceId: ID!): DeleteNamespaceItemsOutput!
+  namespaceActiveUsers(namespaceId: ID!, orgId: ID!): NamespaceActiveUsersOutput!
+  namespaceHealth(orgId: ID!): NamespaceHealthSubscriptionOutput!
+  newNamespaceItem(namespaceId: ID!): NamespaceItem!
+  organizationUsage(orgId: ID!): NumericUsageWithTimestamp!
+  queryLogged(namespaceId: ID!): QueryLog!
+  updateNamespaceItem(namespaceId: ID!): NamespaceItem!
+}
+
+type SuccessRate {
+  id: String!
+  numberOfRuns: Float!
+  successRate: Float!
+}
+
+type TestCase {
+  assertions: [TestCaseAssertion!]!
+  delay: Int
+  execution: Action!
+  id: String!
+  name: String!
+  updatedAt: DateTime
+}
+
+type TestCaseAssertion {
+  action: Action!
+  schema: String!
+}
+
+input TestCaseAssertionInput {
+  action: String!
+  schema: String!
+}
+
+input TestCaseInput {
+  assertions: [TestCaseAssertionInput!]! = []
+  execution: String!
+  id: String
+  name: String!
+}
+
+type TestRun {
+  endTime: DateTime
+  failedToLaunch: Boolean
+  id: ID!
+  name: String!
+  namespaces: [Namespace!]!
+  startTime: DateTime
+  success: Boolean
+  testCases: [TestRunTestCase!]!
+  testSuiteId: ID!
+}
+
+type TestRunTestCase {
+  assertions: [TestRunTestCaseAssertion!]!
+  namespaceId: ID!
+  success: Boolean!
+  testCaseId: String!
+  testCaseName: String!
+}
+
+type TestRunTestCaseAssertion {
+  action: Action!
+  errors: [String!]!
+  schema: String!
+  success: Boolean!
+}
+
+type TestSuite {
+  description: String
+  id: ID!
+  name: String!
+  namespaceSuccessRates: [SuccessRate!]!
+  namespaces: [Namespace!]!
+  numberOfRuns: Float!
+  permissions: Permissions!
+  schedule: String
+  successRate: Float!
+  testCaseSuccessRates: [SuccessRate!]!
+  testRuns: [TestRun!]!
+}
+
+input TestSuiteInput {
+  description: String
+  id: ID
+  name: String
+  namespaces: [String!] = []
+  permissions: PermissionsInput
+  schedule: String
+}
+
+type Totals {
+  cpu: Float!
+  memory: Float!
+  nodes: JSON!
+}
+
+type TrafficHistory implements NamespaceItem {
+  canvasInfo: CanvasInfo!
+  displayName: String!
+  errors: [String!]
+  itemId: String!
+  itemType: String!
+  namespaceStatus: String
+  node1: String
+  node2: String
+  updatedAt: DateTime
+  usage: NumericUsage
+}
+
+input TrafficHistoryInput {
+  canvasInfo: CanvasInfoInput
+  displayName: String
+  itemId: String
+  itemType: String = "TrafficHistory"
+  namespaceStatus: String
+  node1: String
+  node2: String
+}
+
+type Upload {
+  fileExtension: String!
+  fileName: String!
+  filePath: String!
+  fileSizeInBytes: Float!
+  id: ID!
+  metadata: UploadMetadata!
+  permissions: Permissions!
+  uploadLocation: String!
+}
+
+type UploadMetadata {
+  database: String
+  type: String!
+}
+
+type Usage {
+  cpu: String!
+  memory: String!
+}
+
+type User {
+  email: String!
+  emailVerified: Boolean!
+  id: ID!
+  name: String!
+  organizations: [Organization!]!
+  picture: String!
+}

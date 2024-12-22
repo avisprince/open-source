@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+    <link rel="apple-touch-icon" href="/logo192.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <title>Dokkimi</title>
+    <script>
+      const jellysync = document.createElement('script');
+      jellysync.setAttribute(
+        'src',
+        'https://cdn.jsdelivr.net/npm/jellysync@1.0.65/dist/module.min.js',
+      );
+      document.head.appendChild(jellysync);
+      jellysync.onload = () => {
+        window.Jellysync.initialize('344d5503-b5b9-46f4-bfa0-fb5750aadffd');
+      };
+    </script>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <script type="module" src="./index.tsx"></script>
+  </body>
+</html>
