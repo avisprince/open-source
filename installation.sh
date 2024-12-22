@@ -96,7 +96,43 @@ HOSTS_ENTRY="
 echo "$HOSTS_ENTRY" | sudo tee -a /etc/hosts > /dev/null
 
 # Setup nginx
-## TODO
+sudo apt install nginx
+sudo ufw allow 22/tcp
+sudo ufw allow 80/tcp
+sudo ufw allow 5000/tcp
+sudo ufw enable
+
+echo "Creating NGINX configuration..."
+PUBLIC_IP=$(curl -s ifconfig.me)
+
+sudo bash -c "cat > /etc/nginx/sites-available/api" <<EOF
+server {
+  listen 5000;  # External port to access the API via HTTP
+  server_name $PUBLIC_IP;
+  location / {
+    proxy_pass http://localhost:5000;  # Forward requests to your API on port 5000
+    proxy_set_header Host \$host;
+    proxy_set_header X-Real-IP \$remote_addr;
+    proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto \$scheme;
+  }
+}
+
+server {
+  listen 80;  # External port to access the API via HTTP
+  server_name $PUBLIC_IP;
+  location / {
+    proxy_pass http://localhost:3000;  # Forward requests to your API on port 3000
+    proxy_set_header Host \$host;
+    proxy_set_header X-Real-IP \$remote_addr;
+    proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto \$scheme;
+  }
+}
+EOF
+
+sudo nginx -t
+sudo systemctl reload nginx
 
 # Git Installation
 sudo apt update
@@ -104,10 +140,10 @@ sudo apt install git
 git --version
 
 # Install Dokkimi from Github
-## TODO
+git clone "https://github.com/avisprince/open-source.git"
 
 # Go to root folder
-cd ./Dokkimi
+cd ./open-source
 
 # Build the interceptor and proxy-service packages
 yarn dbuild:interceptor
