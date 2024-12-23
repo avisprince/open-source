@@ -1,15 +1,43 @@
 #!/bin/bash
 
 # MongoDB Installation
+# Update package list and install dependencies
+echo "Updating package list..."
+sudo apt-get update -y
+sudo apt-get install -y gnupg curl wget lsb-release
+
+# Add MongoDB GPG key
+echo "Adding MongoDB GPG key..."
+curl -fsSL https://www.mongodb.org/static/pgp/server-6.0.asc | sudo gpg --dearmor -o /usr/share/keyrings/mongodb-archive-keyring.gpg
+
+# Add MongoDB repository
+echo "Adding MongoDB repository..."
+echo "deb [signed-by=/usr/share/keyrings/mongodb-archive-keyring.gpg] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/6.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-6.0.list
+
+# Update package list after adding MongoDB repo
+echo "Updating package list after adding MongoDB repository..."
+sudo apt-get update -y
+
+# Download and install libssl1.1 manually
+echo "Installing libssl1.1..."
+wget http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2_amd64.deb
+sudo dpkg -i libssl1.1_1.1.1f-1ubuntu2_amd64.deb
+sudo apt-get install -f -y
+
+# Install MongoDB
 echo "Installing MongoDB..."
-wget -qO - https://www.mongodb.org/static/pgp/server-6.0.asc | sudo apt-key add -
-echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu $(lsb_release -cs)/mongodb-org/6.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-6.0.list
-sudo apt-get update
 sudo apt-get install -y mongodb-org
+
+# Start and enable MongoDB service
+echo "Starting and enabling MongoDB service..."
 sudo systemctl start mongod
 sudo systemctl enable mongod
-echo "Verifying MongoDB status..."
-# sudo systemctl status mongod
+
+# Check MongoDB status
+echo "Checking MongoDB service status..."
+sudo systemctl status mongod --no-pager
+
+echo "MongoDB installation complete."
 
 # Node.js Installation
 echo "Installing Node.js..."
@@ -30,15 +58,24 @@ sudo npm install -g @nestjs/cli
 # PM2
 sudo npm install -g pm2
 
-# Redis Installation
-echo "Installing Redis..."
-sudo apt install -y redis-server
-echo "Redis version:"
-redis-server --version
+# Setup REDIS
+# Update package list
+echo "Updating package list..."
+sudo apt-get update -y
+
+# Install Redis server
+echo "Installing Redis server..."
+sudo apt-get install -y redis-server
+
+# Enable and start Redis service
+echo "Starting and enabling Redis service..."
 sudo systemctl start redis
-sudo systemctl enable redis
-echo "Verifying Redis status..."
-redis-cli ping
+
+# Check Redis status
+echo "Checking Redis service status..."
+sudo systemctl status redis --no-pager
+
+echo "Basic Redis server installation complete."
 
 # Docker Installation
 echo "Installing Docker..."
@@ -99,8 +136,9 @@ echo "$HOSTS_ENTRY" | sudo tee -a /etc/hosts > /dev/null
 sudo apt install nginx
 sudo ufw allow 22/tcp
 sudo ufw allow 80/tcp
-sudo ufw allow 5000/tcp
+sudo ufw allow 5001/tcp
 sudo ufw enable
+sudo ufw reload
 
 echo "Creating NGINX configuration..."
 PUBLIC_IP=$(curl -s ifconfig.me)
@@ -109,7 +147,7 @@ NGINX_ENABLED="/etc/nginx/sites-enabled/multiport"
 
 sudo bash -c "cat > $NGINX_AVAILABLE" <<EOF
 server {
-  listen 5000;  # External port to access the API via HTTP
+  listen 5001;  # External port to access the API via HTTP
   server_name $PUBLIC_IP;
   location / {
     proxy_pass http://localhost:5000;  # Forward requests to your API on port 5000
@@ -160,9 +198,9 @@ yarn dbuild:proxyservice
 # Setup ControlTower env file and start project
 cd ./control-tower
 cp .env.local.template .env.local
-bash reboot.sh
+# bash reboot.sh
 
 # Go to dashboard, setup env file and start project
 cd ../dashboard
 cp .env.local.template .env.local
-bash reboot.sh
+# bash reboot.sh
