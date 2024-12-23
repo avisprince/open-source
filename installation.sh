@@ -198,11 +198,11 @@ yarn dbuild:proxyservice
 # Setup ControlTower env file and start project
 cd ./control-tower
 cp .env.local.template .env.local
-sed -i "s/SERVER_IP/$PUBLIC_IP/g" .env.local
+sed -i "s/PUBLIC_IP/$PUBLIC_IP/g" .env.local
 # bash reboot.sh
 
 # Go to dashboard, setup env file and start project
 cd ../dashboard
 cp .env.local.template .env.local
-sed -i "s/SERVER_IP/$PUBLIC_IP/g" .env.local
+sed -i "s/PUBLIC_IP/$PUBLIC_IP/g" .env.local
 # bash reboot.sh
