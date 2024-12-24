@@ -57,6 +57,7 @@ export class KubernetesService {
   ) {}
 
   public async startNamespace(namespaceId: MongoID): Promise<Namespace> {
+    console.log('1');
     const kubeClientFactory =
       await this.kubeClientService.getKubeClientFactory();
 
@@ -72,33 +73,42 @@ export class KubernetesService {
         return;
       }
     }
+    console.log('2');
 
     let namespace = await this.namespacesRepository.findById(namespaceId);
+    console.log('3');
 
     await this.namespaceBuilder.build(kubeClientFactory, namespaceId);
+    console.log('4');
     await this.secretsBuilder.build(kubeClientFactory, namespaceId, DOKKIMI, {
       repository: 'Docker',
       auth: Buffer.from(
         `${DOKKIMI}:${process.env.DOKKIMI_DOCKER_HUB_ACCESS_TOKEN}`,
       ).toString('base64'),
     } as DockerRegistrySecret);
+    console.log('5');
     await this.interceptorBuilder.build(
       kubeClientFactory,
       namespaceId.toString(),
       DOKKIMI,
       DOKKIMI,
     );
+    console.log('6');
     // await this.fluentdBuilder.build(kubeClientFactory, namespaceId);
     await this.proxyServiceBuilder.build(kubeClientFactory, namespace);
+    console.log('7');
     await this.ingressBuilder.build(kubeClientFactory, namespace);
+    console.log('8');
 
     // Update DB
     namespace = await this.namespacesRepository.update(namespaceId, {
       status: CloudStatus.ACTIVE,
       lastUsedAt: new Date(),
     });
+    console.log('9');
 
     await this.startNamespaceItems(namespace, namespace.items);
+    console.log('10');
     return this.namespacesRepository.findById(namespaceId);
   }
 

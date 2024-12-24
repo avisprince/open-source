@@ -102,12 +102,13 @@ kubectl version --client
 echo "Installing Minikube..."
 curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
 sudo install minikube /usr/local/bin/
-sudo usermod -aG docker $USER
+# sudo usermod -aG docker $USER
 echo "Log out and log back in, then start Docker and Minikube manually."
 echo "Start Docker:" 
 sudo systemctl start docker
 echo "Start Minikube:" 
-minikube start --driver=docker
+# minikube start --driver=docker
+minikube start --force
 minikube addons enable ingress
 echo "Verify Minikube status:" 
 minikube status
@@ -213,3 +214,4 @@ cd ../dashboard
 cp .env.local.template .env.local
 sed -i "s/PUBLIC_IP/$PUBLIC_IP/g" .env.local
 # bash reboot.sh
+
