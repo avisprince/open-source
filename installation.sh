@@ -110,6 +110,7 @@ echo "Start Minikube:"
 # minikube start --driver=docker
 minikube start --force
 minikube addons enable ingress
+minikube addons enable metrics-server
 echo "Verify Minikube status:" 
 minikube status
 echo "Verify Kubernetes nodes:" 

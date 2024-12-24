@@ -64,18 +64,18 @@ export class KubernetesService {
 
     console.log('1.5');
 
-    // if (process.env.ENABLE_METRICS === BOOLEAN.TRUE) {
-    //   const { cpu, memory } = await this.telemetryService.getClusterUsage(
-    //     kubeClientFactory,
-    //   );
+    if (process.env.ENABLE_METRICS === BOOLEAN.TRUE) {
+      const { cpu, memory } = await this.telemetryService.getClusterUsage(
+        kubeClientFactory,
+      );
 
-    //   if (cpu >= 0.95 || memory >= 0.95) {
-    //     this.logger.warn(
-    //       'Cannot start namespace. CPU and memory usage too high.',
-    //     );
-    //     return;
-    //   }
-    // }
+      if (cpu >= 0.95 || memory >= 0.95) {
+        this.logger.warn(
+          'Cannot start namespace. CPU and memory usage too high.',
+        );
+        return;
+      }
+    }
     console.log('2');
 
     let namespace = await this.namespacesRepository.findById(namespaceId);
