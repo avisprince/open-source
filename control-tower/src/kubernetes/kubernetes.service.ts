@@ -61,6 +61,8 @@ export class KubernetesService {
     const kubeClientFactory =
       await this.kubeClientService.getKubeClientFactory();
 
+    console.log('1.5');
+
     if (process.env.ENABLE_METRICS === BOOLEAN.TRUE) {
       const { cpu, memory } = await this.telemetryService.getClusterUsage(
         kubeClientFactory,
