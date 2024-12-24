@@ -1,6 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import dayjs from 'dayjs';
 import * as fs from 'fs';
+import { existsSync, mkdirSync } from 'fs';
 import { Dictionary } from 'lodash';
 import * as util from 'util';
 
@@ -471,10 +472,12 @@ export class KubernetesService {
 
       const today = `${year}-${month}-${day}`;
       const readFile = util.promisify(fs.readFile);
-      const data = await readFile(
-        `${DOKKIMI_LOCAL_FILES}/namespaces/${namespaceId}/usage/${today}.txt`,
-        'utf8',
-      );
+      const path = `${DOKKIMI_LOCAL_FILES}/namespaces/${namespaceId}/usage`;
+      if (!existsSync(path)) {
+        mkdirSync(path, { recursive: true });
+      }
+
+      const data = await readFile(`${path}/${today}.txt`, 'utf8');
       const lines = data.split('\n').filter(l => l.trim() !== '');
       const lastLine = lines[lines.length - 1];
       const namespaceUsage: NamespaceUsageFile = JSON.parse(lastLine);
