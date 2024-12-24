@@ -37,9 +37,7 @@ export class ScheduledJobsService {
   // @Cron(CronExpression.EVERY_5_SECONDS)
   public async monitorUsage(): Promise<void> {
     try {
-      if (process.env.ENABLE_METRICS === BOOLEAN.TRUE) {
-        await this.telemetryService.monitorUsage();
-      }
+      await this.telemetryService.monitorUsage();
     } catch (err) {
       this.logger.error(err);
     }

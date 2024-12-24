@@ -121,6 +121,11 @@ echo "Script execution complete!"
 # Install ingress?
 # kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.1.2/deploy/static/provider/cloud/deploy.yaml
 
+# Create Uploads Directory
+TARGET_DIR="/Dokkimi/local-files"
+mkdir -p "$TARGET_DIR"
+chmod 755 "$TARGET_DIR"
+
 # NestJS
 sudo npm install -g @nestjs/cli
 # PM2

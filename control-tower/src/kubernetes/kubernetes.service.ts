@@ -7,7 +7,7 @@ import * as util from 'util';
 
 import { DOKKIMI_LOCAL_FILES } from '#src/app.contants';
 import { CloudStatus } from '#src/constants/cloudStatus.constants';
-import { BOOLEAN, DOKKIMI } from '#src/constants/environment.constants';
+import { DOKKIMI } from '#src/constants/environment.constants';
 import { CRASHED, LOADING, RUNNING } from '#src/constants/namespace.constants';
 import {
   DatabaseBuilder,
@@ -58,60 +58,47 @@ export class KubernetesService {
   ) {}
 
   public async startNamespace(namespaceId: MongoID): Promise<Namespace> {
-    console.log('1');
     const kubeClientFactory =
       await this.kubeClientService.getKubeClientFactory();
 
-    console.log('1.5');
+    const { cpu, memory } = await this.telemetryService.getClusterUsage(
+      kubeClientFactory,
+    );
 
-    if (process.env.ENABLE_METRICS === BOOLEAN.TRUE) {
-      const { cpu, memory } = await this.telemetryService.getClusterUsage(
-        kubeClientFactory,
+    if (cpu >= 0.95 || memory >= 0.95) {
+      this.logger.warn(
+        'Cannot start namespace. CPU and memory usage too high.',
       );
-
-      if (cpu >= 0.95 || memory >= 0.95) {
-        this.logger.warn(
-          'Cannot start namespace. CPU and memory usage too high.',
-        );
-        return;
-      }
+      return;
     }
-    console.log('2');
 
     let namespace = await this.namespacesRepository.findById(namespaceId);
-    console.log('3');
 
     await this.namespaceBuilder.build(kubeClientFactory, namespaceId);
-    console.log('4');
     await this.secretsBuilder.build(kubeClientFactory, namespaceId, DOKKIMI, {
       repository: 'Docker',
       auth: Buffer.from(
         `${DOKKIMI}:${process.env.DOKKIMI_DOCKER_HUB_ACCESS_TOKEN}`,
       ).toString('base64'),
     } as DockerRegistrySecret);
-    console.log('5');
     await this.interceptorBuilder.build(
       kubeClientFactory,
       namespaceId.toString(),
       DOKKIMI,
       DOKKIMI,
     );
-    console.log('6');
+
     // await this.fluentdBuilder.build(kubeClientFactory, namespaceId);
     await this.proxyServiceBuilder.build(kubeClientFactory, namespace);
-    console.log('7');
     await this.ingressBuilder.build(kubeClientFactory, namespace);
-    console.log('8');
 
     // Update DB
     namespace = await this.namespacesRepository.update(namespaceId, {
       status: CloudStatus.ACTIVE,
       lastUsedAt: new Date(),
     });
-    console.log('9');
 
     await this.startNamespaceItems(namespace, namespace.items);
-    console.log('10');
     return this.namespacesRepository.findById(namespaceId);
   }
 
