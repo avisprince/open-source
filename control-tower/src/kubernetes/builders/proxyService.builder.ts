@@ -155,12 +155,12 @@ export class ProxyServiceBuilder {
                   ],
                   resources: {
                     requests: {
-                      memory: '200Mi',
-                      cpu: '200m',
+                      memory: '100Mi',
+                      cpu: '100m',
                     },
                     limits: {
-                      memory: '600Mi',
-                      cpu: '500m',
+                      memory: '300Mi',
+                      cpu: '200m',
                     },
                   },
                 },
@@ -170,7 +170,7 @@ export class ProxyServiceBuilder {
                   name: 'proxy-service-files',
                   hostPath: {
                     path: DOKKIMI_LOCAL_FILES,
-                    type: 'Directory',
+                    type: 'DirectoryOrCreate',
                   },
                 },
               ],
