@@ -159,8 +159,8 @@ export class ProxyServiceBuilder {
                       cpu: '100m',
                     },
                     limits: {
-                      memory: '300Mi',
-                      cpu: '200m',
+                      memory: '600Mi',
+                      cpu: '500m',
                     },
                   },
                 },
