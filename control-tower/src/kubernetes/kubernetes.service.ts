@@ -163,7 +163,7 @@ export class KubernetesService {
       );
 
       await this.kubernetesClient.updateProxyServiceUrlMap(namespace);
-      // await this.checkNamespaceHealthAndUsage(namespace.id);
+      await this.checkNamespaceHealthAndUsage(namespace.id);
     } catch (err) {
       this.logger.error(err.message);
     }
