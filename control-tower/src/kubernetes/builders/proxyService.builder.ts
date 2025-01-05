@@ -155,8 +155,8 @@ export class ProxyServiceBuilder {
                   ],
                   resources: {
                     requests: {
-                      memory: '100Mi',
-                      cpu: '100m',
+                      memory: '200Mi',
+                      cpu: '200m',
                     },
                     limits: {
                       memory: '600Mi',
