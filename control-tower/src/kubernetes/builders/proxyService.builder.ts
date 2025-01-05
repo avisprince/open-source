@@ -152,22 +152,6 @@ export class ProxyServiceBuilder {
                       name: 'POSTGRES_PORT',
                       value: DB_PORTS.POSTGRES.toString(),
                     },
-                    {
-                      name: 'SPACES_BUCKET',
-                      value: process.env.SPACES_BUCKET,
-                    },
-                    {
-                      name: 'SPACES_REGION',
-                      value: 'nyc3',
-                    },
-                    {
-                      name: 'SPACES_ACCESS_KEY',
-                      value: process.env.SPACES_ACCESS_KEY,
-                    },
-                    {
-                      name: 'SPACES_SECRET_KEY',
-                      value: process.env.SPACES_SECRET_KEY,
-                    },
                   ],
                   resources: {
                     requests: {
