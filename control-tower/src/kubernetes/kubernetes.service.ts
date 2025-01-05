@@ -163,7 +163,7 @@ export class KubernetesService {
       );
 
       await this.kubernetesClient.updateProxyServiceUrlMap(namespace);
-      await this.checkNamespaceHealthAndUsage(namespace.id);
+      // await this.checkNamespaceHealthAndUsage(namespace.id);
     } catch (err) {
       this.logger.error(err.message);
     }
@@ -215,7 +215,7 @@ export class KubernetesService {
         ...item,
         namespaceStatus: 'loading',
       });
-      await this.checkNamespaceHealthAndUsage(namespaceId);
+      // await this.checkNamespaceHealthAndUsage(namespaceId);
       await this.kubernetesClient.updateProxyServiceUrlMap(namespace);
     } catch (err) {
       this.logger.error(
