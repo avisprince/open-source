@@ -77,6 +77,11 @@ sudo systemctl status redis --no-pager
 
 echo "Basic Redis server installation complete."
 
+# Create Uploads Directory
+TARGET_DIR="/Dokkimi/local-files"
+mkdir -p "$TARGET_DIR"
+chmod 755 "$TARGET_DIR"
+
 # Docker Installation
 echo "Installing Docker..."
 sudo apt install -y apt-transport-https ca-certificates curl software-properties-common
@@ -106,9 +111,10 @@ sudo install minikube /usr/local/bin/
 echo "Log out and log back in, then start Docker and Minikube manually."
 echo "Start Docker:" 
 sudo systemctl start docker
-echo "Start Minikube:" 
+
+echo "Start Minikube:"
 # minikube start --driver=docker
-minikube start --force
+minikube start --mount-string="$TARGET_DIR:/tmp/Dokkimi" --mount --force
 minikube addons enable ingress
 minikube addons enable metrics-server
 echo "Verify Minikube status:" 
@@ -120,11 +126,6 @@ echo "Script execution complete!"
 
 # Install ingress?
 # kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.1.2/deploy/static/provider/cloud/deploy.yaml
-
-# Create Uploads Directory
-TARGET_DIR="/Dokkimi/local-files"
-mkdir -p "$TARGET_DIR"
-chmod 755 "$TARGET_DIR"
 
 # NestJS
 sudo npm install -g @nestjs/cli
