@@ -125,7 +125,7 @@ kubectl get nodes
 echo "Script execution complete!"
 
 # Install ingress?
-# kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.1.2/deploy/static/provider/cloud/deploy.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/cloud/deploy.yaml
 
 # NestJS
 sudo npm install -g @nestjs/cli
