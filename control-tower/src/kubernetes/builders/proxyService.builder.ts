@@ -1,7 +1,7 @@
 import { CoreV1Api, RbacAuthorizationV1Api } from '@kubernetes/client-node';
 import { Injectable, Logger } from '@nestjs/common';
 
-import { DOKKIMI_LOCAL_FILES } from '#src/app.contants';
+import { DOKKIMI_CLUSTER_FILES } from '#src/app.contants';
 import { DOKKIMI } from '#src/constants/environment.constants';
 import { PROXY_SERVICE_NAME } from '#src/constants/route.constants';
 import { calculateUrlMap } from '#src/kubernetes/builders/utils/kubernetes.util';
@@ -169,7 +169,7 @@ export class ProxyServiceBuilder {
                 {
                   name: 'proxy-service-files',
                   hostPath: {
-                    path: DOKKIMI_LOCAL_FILES,
+                    path: DOKKIMI_CLUSTER_FILES,
                     type: 'DirectoryOrCreate',
                   },
                 },
