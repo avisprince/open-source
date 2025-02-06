@@ -197,7 +197,7 @@ sudo systemctl reload nginx
 
 # Git Installation
 sudo apt update
-sudo apt install git
+sudo apt install git -y
 git --version
 
 # Install Dokkimi from Github
