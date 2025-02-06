@@ -103,11 +103,6 @@ export class InterceptorBuilder {
                     image: this.podSpecUtil.imageName(INTERCEPTOR_NAME),
                     imagePullPolicy:
                       process.env.IMAGE_PULL_POLICY || 'IfNotPresent',
-                    ports: [
-                      {
-                        containerPort: 80,
-                      },
-                    ],
                     volumeMounts: this.podSpecUtil.volumeMounts(),
                     env: [
                       {
@@ -143,16 +138,16 @@ export class InterceptorBuilder {
                         value: process.env.BUGSNAG_API_KEY,
                       },
                     ],
-                    resources: {
-                      requests: {
-                        memory: '100Mi',
-                        cpu: '100m',
-                      },
-                      limits: {
-                        memory: '200Mi',
-                        cpu: '200m',
-                      },
-                    },
+                    // resources: {
+                    //   requests: {
+                    //     memory: '100Mi',
+                    //     cpu: '100m',
+                    //   },
+                    //   limits: {
+                    //     memory: '200Mi',
+                    //     cpu: '200m',
+                    //   },
+                    // },
                   },
                 ],
                 volumes: this.podSpecUtil.volumes(),

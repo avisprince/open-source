@@ -36,8 +36,6 @@ export class KubernetesClient {
 
     const { target, path, method, headers, body } = httpRequest;
 
-    console.log('httpRequest', httpRequest);
-
     return this.performHttpRequest(
       namespaceId,
       target,
@@ -87,15 +85,6 @@ export class KubernetesClient {
     try {
       const baseURL = getClusterBaseUrl();
       const serviceRequest = axios.create({ baseURL });
-
-      console.log('request to proxy service');
-      console.log({
-        baseURL,
-        method: method as Method,
-        url: `/${namespaceId}/${itemId}${path || '/'}`,
-        headers: safeJSONparse(headers, {}),
-        data: safeJSONparse(body, {}),
-      });
 
       const response = await serviceRequest({
         method: method as Method,
