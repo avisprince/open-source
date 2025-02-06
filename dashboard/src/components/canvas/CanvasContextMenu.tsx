@@ -15,7 +15,6 @@ import { CanvasItemType } from 'src/components/canvas/Canvas';
 import useAddItemToNamespace from 'src/components/canvas/relay/useAddItemToNamespace';
 import useAddTemplateToNamespace from 'src/components/canvas/relay/useAddTemplateToNamespace';
 import { canvasTools } from 'src/components/canvas/sidebar/tools/CanvasTools';
-import { getCanvasItemDefaults } from 'src/components/canvas/utils/canvasItemDefaults';
 import Flexbox from 'src/components/custom/Flexbox';
 import { DokkimiColors } from 'src/components/styles/colors';
 import stylist from 'src/components/styles/stylist';
@@ -71,15 +70,9 @@ export default function CanvasContextMenu({
         return;
       }
 
-      const defaults = getCanvasItemDefaults(
-        template.template.itemType as CanvasItemType,
-      );
-
       addTemplateToNamespace(template.id, {
         posX: pos.canvasX,
         posY: pos.canvasY,
-        height: defaults.height,
-        width: defaults.width,
       });
 
       onClose();
