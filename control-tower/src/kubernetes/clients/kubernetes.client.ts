@@ -36,6 +36,8 @@ export class KubernetesClient {
 
     const { target, path, method, headers, body } = httpRequest;
 
+    console.log(httpRequest);
+
     return this.performHttpRequest(
       namespaceId,
       target,
