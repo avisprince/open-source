@@ -101,6 +101,11 @@ export class ProxyServiceBuilder {
                   image: this.podSpecUtil.imageName(PROXY_SERVICE_NAME),
                   imagePullPolicy:
                     process.env.IMAGE_PULL_POLICY || 'IfNotPresent',
+                  ports: [
+                    {
+                      containerPort: 5001,
+                    },
+                  ],
                   volumeMounts: [
                     {
                       mountPath: '/app/Dokkimi',

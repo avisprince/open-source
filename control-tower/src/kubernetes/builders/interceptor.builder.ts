@@ -103,6 +103,11 @@ export class InterceptorBuilder {
                     image: this.podSpecUtil.imageName(INTERCEPTOR_NAME),
                     imagePullPolicy:
                       process.env.IMAGE_PULL_POLICY || 'IfNotPresent',
+                    ports: [
+                      {
+                        containerPort: 80,
+                      },
+                    ],
                     volumeMounts: this.podSpecUtil.volumeMounts(),
                     env: [
                       {
