@@ -141,7 +141,7 @@ HOSTS_ENTRY="
 echo "$HOSTS_ENTRY" | sudo tee -a /etc/hosts > /dev/null
 
 # Setup nginx
-sudo apt install nginx
+sudo apt install nginx -y
 sudo ufw allow 22/tcp
 sudo ufw allow 80/tcp
 sudo ufw allow 5001/tcp
