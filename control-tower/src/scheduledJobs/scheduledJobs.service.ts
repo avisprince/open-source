@@ -78,7 +78,7 @@ export class ScheduledJobsService {
     );
   }
 
-  // @Cron(CronExpression.EVERY_5_SECONDS)
+  @Cron(CronExpression.EVERY_5_SECONDS)
   public async checkNamespaceHealthAndUsage(): Promise<void> {
     const namespaces = await this.namespacesRepository.find({
       status: { $in: [CloudStatus.ACTIVE, CloudStatus.TERMINATING] },
