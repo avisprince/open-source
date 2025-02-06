@@ -145,8 +145,8 @@ sudo apt install nginx -y
 sudo ufw allow 22/tcp
 sudo ufw allow 80/tcp
 sudo ufw allow 5001/tcp
-sudo ufw enable
-sudo ufw reload
+sudo ufw --force enable
+sudo ufw --force reload
 
 echo "Creating NGINX configuration..."
 PUBLIC_IP=$(curl -s ifconfig.me)
